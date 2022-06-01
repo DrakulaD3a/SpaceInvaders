@@ -4,7 +4,7 @@
 ## Windows setup
 ### 1. Clone this repository (do not initialize submodules)
 ~~~
-git clone  SDLGameTemplate
+git clone https://github.com/DrakulaD3a/SpaceInvaders/ SDLGameTemplate
 ~~~
 This will create **Source** folder with the source code and assets wherever you run the clone command.
 
