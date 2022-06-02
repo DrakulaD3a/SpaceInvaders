@@ -2,7 +2,7 @@
 
 ---
 ## Windows setup
-### 1. Clone this repository (do not initialize submodules)
+### 1. Clone this repository
 ~~~
 git clone https://github.com/DrakulaD3a/SpaceInvaders.git Source
 ~~~
@@ -22,12 +22,9 @@ In this particular example its **SDLGameBuild**.
 You can find prepared project in the **Build** folder.
 If you use Visual Studio, you can find **.sln** file there. Don't forget to set your project as the one being run by default.
 ## Linux setup
-### 1. Clone this repository and initialize its submodules
+### 1. Clone this repository
 ~~~
 git clone https://github.com/DrakulaD3a/SpaceInvaders.git Source
-cd Source
-git submodule init
-git submodule update
 ~~~
 ### 2. Create your build using CMake
 - Its recomended to use "out-of-source" build (https://gitlab.kitware.com/cmake/community/-/wikis/FAQ#out-of-source-build-trees) that means you should create a build folder next to the repository you cloned in the step one.
