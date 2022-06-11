@@ -23,7 +23,7 @@ void Tutorial();
 #define WH 1080
 
 
-bool bossPhase = true, showTutorial = false, showTutMoving = true, showTutShooting = false, inmainmenu = true, inEndMenu = false;
+bool bossPhase = false, showTutorial = false, showTutMoving = true, showTutShooting = false, inmainmenu = true, inEndMenu = false;
 int Hp = 5, toBoss = 2, bossHp = 10, enemy_speed_multiplier = 1, enemies_killed = 0, score = 0, proj_dmg = 1, move = 0;
 int bossDestination = WW / 2, highlightedThrust = rand() % 4, Clock = 0, Clock2 = 0;
 const int speedOfProj = WH / 135, player_speed = WW / 240, numOfProjs = 10;
