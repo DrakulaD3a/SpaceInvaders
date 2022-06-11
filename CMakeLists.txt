@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.13)
 
 # Rename the project here
-project(SDL2Game VERSION 1.0 LANGUAGES CXX)
+project(SpaceInvaders VERSION 1.0 LANGUAGES CXX)
 
 # Add your sources here
 set(SOURCES

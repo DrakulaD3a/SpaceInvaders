@@ -23,7 +23,7 @@ void Tutorial();
 #define WH 1080
 
 
-bool bossPhase = false, showTutorial = false, showTutMoving = true, showTutShooting = false, inmainmenu = true, inEndMenu = false;
+bool bossPhase = true, showTutorial = false, showTutMoving = true, showTutShooting = false, inmainmenu = true, inEndMenu = false;
 int Hp = 5, toBoss = 2, bossHp = 10, enemy_speed_multiplier = 1, enemies_killed = 0, score = 0, proj_dmg = 1, move = 0;
 int bossDestination = WW / 2, highlightedThrust = rand() % 4, Clock = 0, Clock2 = 0;
 const int speedOfProj = WH / 135, player_speed = WW / 240, numOfProjs = 10;
@@ -59,8 +59,7 @@ SDL_Point mousePosition = { NULL };
 Sprite main_menu_sprite, background, ship_sprite, ship_sprite2, ship_sprite3, enemy_sprite, projectile_sprite, heart_sprite;
 Sprite boss_sprite, rocketshooter_sprite, rocket_sprite, lasershooter_sprite, laser_sprite, boss_thrust_sprite, explosion_sprite;
 Text tutorial_mv, tutorial_sh, tutorial_ch, MainMenu[4], numbers[10], endscreen;
-//Sound Crash, PowerUp, Explosion, Charging, Shoot;
-//Mix_Music* music;
+Sound Crash, PowerUp, Explosion, Charging, Shoot;
 
 //=============================================================================
 int main(int argc, char* argv[])
@@ -92,8 +91,6 @@ int main(int argc, char* argv[])
 	mainmenuRect[3] = { 100, 620, 200, 40 };
 
 
-	//music = Mix_LoadMUS("assets/music.wav");
-	//Mix_FadeInMusic(music, -1, 200);
 	main_menu_sprite = LoadSprite("assets/Background2.png");
 	background = LoadSprite("assets/Background.png");
 	ship_sprite = LoadSprite("assets/Aly-sprite.png");
@@ -112,10 +109,10 @@ int main(int argc, char* argv[])
 	tutorial_mv = LoadText("assets/FastHand.ttf", 100, "Y o u  c a n   m o v e   w i t h   W A S D   k e y s   o r   a r r o w s !", { 255,255,255,255 });
 	tutorial_sh = LoadText("assets/FastHand.ttf", 100, "Y o u   c a n   s h o o t   w i t h   S P A C E !", { 255,255,255,255 });
 	tutorial_ch = LoadText("assets/FastHand.ttf", 100, "Y o u   c a n   c h a r g e   y o u r   s h o t   b y   h o l d i n g   d o w n   S P A C E !", { 255,255,255,255 });
-	//Crash = LoadSound("assets/crash.wav");
-	//Explosion = LoadSound("assets/explosion.wav");
-	//Charging = LoadSound("assets/charging.wav");
-	//Shoot = LoadSound("assets/shoot.wav");
+	Crash = LoadSound("assets/crash.wav");
+	Explosion = LoadSound("assets/explosion.wav");
+	Charging = LoadSound("assets/charging.wav");
+	Shoot = LoadSound("assets/shoot.wav");
 	MainMenu[0] = LoadText("assets/ethnocentric_rg.ttf", 100, "Space Invaders", { 255,255,255,255 });
 	MainMenu[1] = LoadText("assets/ethnocentric_rg.ttf", 100, "Start", { 255,255,255,255 });
 	MainMenu[2] = LoadText("assets/ethnocentric_rg.ttf", 100, "Start with tutorial", { 255,255,255,255 });
@@ -133,7 +130,6 @@ int main(int argc, char* argv[])
 	numbers[9] = LoadText("assets/ethnocentric_rg.ttf", 100, "9", { 255, 0, 0,255 });
 
 
-	// Push functions to the game loop
 	StartLoop(Update, RenderFrame);
 
 	FreeSprite(main_menu_sprite);
@@ -235,7 +231,7 @@ void Update(float dt)
 	{
 		projFlying[firstFreeProj] = true;
 
-		//PlaySound(Shoot);
+		PlaySound(Shoot);
 
 		for (int i = numOfProjs - 1; i > 0; i--)
 			firstFreeProj = (!projFlying[i]) ? i : firstFreeProj;
@@ -382,11 +378,11 @@ void BossPhase()
 	}
 
 	//boss movement
-	if (boss.x < bossDestination)
+	if (boss.x + boss.w < bossDestination)
 	{
 		boss.x += enemy_speed_multiplier;
 	}
-	else if (boss.x > bossDestination)
+	else if (boss.x> bossDestination)
 	{
 		boss.x -= enemy_speed_multiplier;
 	}
@@ -425,7 +421,7 @@ void BossPhase()
 			highlightedThrust = rand() % 4;
 			bossHp--;
 
-			//PlaySound(Crash);
+			PlaySound(Crash);
 		}
 	}
 	
@@ -445,7 +441,7 @@ void BossPhase()
 				explosion = rocket;
 				rocketFlying = false;
 
-				//PlaySound(Explosion);
+				PlaySound(Explosion);
 			}
 
 			if (rocket.x <= rocketDestination.x)
@@ -548,7 +544,7 @@ void BossPhase()
 		laser2.x = -999;
 		laser2.y = -999;
 
-		//PlaySound(Crash);
+		PlaySound(Crash);
 	}
 
 	if (SDL_HasIntersection(&player, &explosion))
@@ -559,7 +555,7 @@ void BossPhase()
 		explosion.x = -999;
 		explosion.y = -999;
 
-		//PlaySound(Crash);
+		PlaySound(Crash);
 	}
 
 	//end of boss phase
@@ -598,7 +594,7 @@ void EnemyPhase()
 			enemies_killed++;
 			score++;
 
-			//PlaySound(Crash);
+			PlaySound(Crash);
 		}
 		if (SDL_HasIntersection(&proj[i], &enemy2))
 		{
@@ -609,7 +605,7 @@ void EnemyPhase()
 			enemies_killed++;
 			score++;
 
-			//PlaySound(Crash);
+			PlaySound(Crash);
 		}
 	}
 	
@@ -622,14 +618,14 @@ void EnemyPhase()
 		Hp--;
 		enemy1destroyed = true;
 
-		//PlaySound(Crash);
+		PlaySound(Crash);
 	}
 	else if (enemy2.y >= player.y - enemy2.h)
 	{
 		Hp--;
 		enemy2destroyed = true;
 
-		//PlaySound(Crash);
+		PlaySound(Crash);
 	}
 
 
