@@ -51,5 +51,5 @@ $ ln -s "../Source/assets/" "./assets"
 ### 5. Run the game
 You can run the **SDLGame** executable in the **Build** folder
 ~~~
-SDLGameBuild$ ./SDLGame
+Build$ ./SpaceInvaders
 ~~~
